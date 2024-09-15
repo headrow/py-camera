@@ -115,7 +115,7 @@ while (validateResponse() == False):
     print("OPTIONS:")
 
     for i in range(1, len(options) + 1):
-        print(f"{i} - {options[i - 1]["name"]}")
+        print(f"{i} - {options[i - 1]['name']}")
 
     response = input("Select a option: ")
 
@@ -126,7 +126,7 @@ try:
 
     for result in results["matches"]:
         if (isIPv4(result["ip_str"])):
-            ip_str = f"{result["ip_str"]}:{result["port"]}"
+            ip_str = f"{result['ip_str']}:{result['port']}"
             foundMethod = False
 
             if (result["port"] == "443"):
