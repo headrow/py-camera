@@ -1,0 +1,64 @@
+[
+    {
+        "name": "NetSurveillance",
+        "search": "200 'NetSurveillance'",
+        "usernames": [
+            "admin"
+        ],
+        "passwords": [
+            ""
+        ]
+    },
+    {
+        "name": "NETSurveillance WEB",
+        "search": "title:'NETSuveillance WEB'",
+        "usernames": [
+            "admin"
+        ],
+        "passwords": [
+            ""
+        ]
+    },
+    {
+        "name": "FOSCAM",
+        "search": "netwave ip camera content-length: 2574",
+        "usernames": [
+            "admin"
+        ],
+        "passwords": [
+            "",
+            "admin"
+        ]
+    },
+    {
+        "name": "FOSCAM 2",
+        "search": "Netwave",
+        "usernames": [
+            "admin"
+        ],
+        "passwords": [
+            "",
+            "admin"
+        ]
+    },
+    {
+        "name": "Camera Web",
+        "search": "camera web",
+        "usernames": [
+            "admin"
+        ],
+        "passwords": [
+            ""
+        ]
+    },
+    {
+        "name": "Has Screenshot",
+        "search": "has_screenshot:true -product:\"Remote Desktop Protocol\"",
+        "usernames": [
+            "admin"
+        ],
+        "passwords": [
+            ""
+        ]
+    }
+]
