@@ -122,7 +122,7 @@ while (validateResponse() == False):
 os.system("cls")
 
 try:
-    results = api.search(options[i - 1]["search"])
+    results = api.search(options[int(response) - 1]["search"])
 
     for result in results["matches"]:
         if (isIPv4(result["ip_str"])):
